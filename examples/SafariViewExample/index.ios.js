@@ -1,10 +1,10 @@
 'use strict';
-import React, {
-  AlertIOS,
+import React, { Component } from 'react';
+import {
+  Alert,
   AppRegistry,
-  Component,
   processColor,
-  StatusBarIOS,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -14,14 +14,18 @@ import React, {
 import SafariView from 'react-native-safari-view';
 
 class SafariViewExample extends Component {
+  state = {
+    webViewVisible: false
+  };
+
   componentDidMount() {
     this.showSubscription = () => {
       console.log("SafariView onShow")
-      StatusBarIOS.setStyle("light-content");
+      this.setState({webViewVisible: true});
     };
     this.dismissSubscription = () => {
       console.log("SafariView onDismiss");
-      StatusBarIOS.setStyle("default");
+      this.setState({webViewVisible: false});
     };
     SafariView.addEventListener("onShow", this.showSubscription);
     SafariView.addEventListener("onDismiss", this.dismissSubscription);
@@ -33,8 +37,11 @@ class SafariViewExample extends Component {
   }
 
   render() {
+    var barStyle = this.state.webViewVisible ? 'default' : 'light-content';
+
     return (
       <View style={styles.container}>
+        <StatusBar barStyle={barStyle} />
         <Text style={styles.welcome}>
           react-native-safari-view
         </Text>
@@ -69,10 +76,10 @@ class SafariViewExample extends Component {
   _isAvailable() {
     SafariView.isAvailable()
       .then(success => {
-        AlertIOS.alert('SFSafariView available.');
+        Alert.alert('SafariView available.');
       })
       .catch(error => {
-        AlertIOS.alert('SFSafariView not available.');
+        Alert.alert('SafariView not available.');
       });
   }
 }

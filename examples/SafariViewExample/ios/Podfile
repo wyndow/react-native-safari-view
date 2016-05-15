@@ -1,0 +1,13 @@
+project 'SafariViewExample.xcodeproj'
+
+target 'SafariViewExample' do
+  pod 'React', :subspecs => [
+    'Core',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+  ], :path => '../node_modules/react-native'
+  pod 'react-native-safari-view', :path => '../../..'
+end
